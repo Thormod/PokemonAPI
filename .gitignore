@@ -1,5 +1,9 @@
 .classpath
 .mvn
+.idea/
+.springBeans
+.iml
+.yml
 .project
 .settings/
 build.gradle
@@ -9,3 +13,6 @@ gradlew.bat
 mvnw
 mvnw.cmd
 target
+manifest.yml
+gs-rest-service.iml
+gs-rest-service-complete.iml
