@@ -1,6 +1,8 @@
 package com.co.psl.config;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import com.co.psl.models.Pokemon;
 import com.co.psl.models.PokemonTypes;
+import com.co.psl.repositories.PokemonRepository;
+import com.co.psl.repositories.PokemonTypesRepository;
 
 @Component
 public class PokemonDAO {
@@ -17,72 +21,93 @@ public class PokemonDAO {
 	@Autowired
 	private PokemonTypesRepository typesRepository;
 	
-	private ArrayList<PokemonTypes> avaibleTypes;
-	private ArrayList<Pokemon> avaiblePokemons;
-
 	@PostConstruct
 	public void pokemonSetUp() {
-		//ArrayList for types
-		avaibleTypes = new ArrayList<PokemonTypes>();
-		avaibleTypes.add(new PokemonTypes(0, "Electric"));
-		avaibleTypes.add(new PokemonTypes(1, "Grass"));
-		avaibleTypes.add(new PokemonTypes(3, "Poison"));
-		avaibleTypes.add(new PokemonTypes(4, "Fire"));
-		avaibleTypes.add(new PokemonTypes(5, "Flying"));
-		avaibleTypes.add(new PokemonTypes(6, "Ice"));
-		avaibleTypes.add(new PokemonTypes(7, "Physic"));
-		avaibleTypes.add(new PokemonTypes(8, "Ground"));
-
-		//ArrayList for pokemons
-		avaiblePokemons = new ArrayList<Pokemon>();
-		avaiblePokemons.add(new Pokemon(1, "Pikachu", new String[] { "Electric" }, new String[] { "Ground" }, 2,
-				"https://goo.gl/T1rXHl"));
-		avaiblePokemons.add(new Pokemon(2, "Bulbasaur", new String[] { "Grass", "Poison" },
-				new String[] { "Fire", "Ice", "Flying", "Physic" }, 0, "https://goo.gl/NSvqCU"));
-		avaiblePokemons.add(new Pokemon(3, "Charizard", new String[] { "Fire", "Flying" },
-				new String[] { "Ground", "Water", "Rock", "Electric", "Ice" }, 3, "https://goo.gl/0EQHsC"));
-		avaiblePokemons.add(new Pokemon(4, "Electabuzz", new String[] { "Electric" }, new String[] { "Ground" }, 2,
-				"https://goo.gl/3dhOzV"));
-		avaiblePokemons.add(new Pokemon(5, "Koffing", new String[] { "Posion" }, new String[] { "Ground", "Physic" }, 1,
-				"https://goo.gl/0Qjktf"));
-		
-		//PokemonRepository data saving
-		pokemonRepository.save(new Pokemon(1, "Pikachu", new String[] { "Electric" }, new String[] { "Ground" }, 2,
-				"https://goo.gl/T1rXHl"));
-		pokemonRepository.save(new Pokemon(2, "Bulbasaur", new String[] { "Grass", "Poison" },
-				new String[] { "Fire", "Ice", "Flying", "Physic" }, 0, "https://goo.gl/NSvqCU"));
-		pokemonRepository.save(new Pokemon(3, "Charizard", new String[] { "Fire", "Flying" },
-				new String[] { "Ground", "Water", "Rock", "Electric", "Ice" }, 3, "https://goo.gl/0EQHsC"));
-		pokemonRepository.save(new Pokemon(4, "Electabuzz", new String[] { "Electric" }, new String[] { "Ground" }, 2,
-				"https://goo.gl/3dhOzV"));
-		pokemonRepository.save(new Pokemon(5, "Koffing", new String[] { "Posion" }, new String[] { "Ground", "Physic" }, 1,
-				"https://goo.gl/0Qjktf"));
 		
 		//PokemonTypeRepository data saving
-		typesRepository.save(new PokemonTypes(0, "Electric"));
-		typesRepository.save(new PokemonTypes(1, "Grass"));
-		typesRepository.save(new PokemonTypes(3, "Poison"));
-		typesRepository.save(new PokemonTypes(4, "Fire"));
-		typesRepository.save(new PokemonTypes(5, "Flying"));
-		typesRepository.save(new PokemonTypes(6, "Ice"));
-		typesRepository.save(new PokemonTypes(7, "Physic"));
-		typesRepository.save(new PokemonTypes(8, "Ground"));
-
-	}
-
-	public ArrayList<PokemonTypes> getAvaibleTypes() {
-		return avaibleTypes;
-	}
-
-	public ArrayList<Pokemon> getAvaiblePokemons() {
-		return avaiblePokemons;
+		PokemonTypes electric = new PokemonTypes("Electric");
+		PokemonTypes grass = new PokemonTypes("Grass");
+		PokemonTypes poison = new PokemonTypes("Poison");
+		PokemonTypes fire = new PokemonTypes("Fire");
+		PokemonTypes flying = new PokemonTypes("Flying");
+		PokemonTypes ice = new PokemonTypes("Ice");
+		PokemonTypes physic = new PokemonTypes("Physic");
+		PokemonTypes ground = new PokemonTypes("Ground");
+		PokemonTypes water = new PokemonTypes("Water");
+		PokemonTypes rock = new PokemonTypes("Rock");
+		
+		typesRepository.saveAndFlush(electric);
+		typesRepository.saveAndFlush(grass);
+		typesRepository.saveAndFlush(poison);
+		typesRepository.saveAndFlush(fire);
+		typesRepository.saveAndFlush(flying);
+		typesRepository.saveAndFlush(ice);
+		typesRepository.saveAndFlush(physic);
+		typesRepository.saveAndFlush(ground);
+		typesRepository.saveAndFlush(water);
+		typesRepository.saveAndFlush(rock);
+		
+		//PokemonRepository data saving
+		Pokemon raichu = new Pokemon();
+		raichu.setName("Raichu");
+		raichu.setImage("https://goo.gl/MiOSbH");
+		raichu.setEvolution(null);
+		raichu.setType(Arrays.asList(electric));
+		raichu.setWeakness(Arrays.asList(poison));
+		pokemonRepository.saveAndFlush(raichu);
+		
+		Pokemon pikachu = new Pokemon();
+		pikachu.setName("Pikachu");
+		pikachu.setImage("https://goo.gl/T1rXHl");
+		pikachu.setEvolution(raichu);
+		raichu.setType(Arrays.asList(electric));
+		raichu.setWeakness(Arrays.asList(poison));
+		pokemonRepository.saveAndFlush(pikachu);
+		
+		Pokemon bulbasaur = new Pokemon();
+		pikachu.setName("Bulbasaur");
+		pikachu.setImage("https://goo.gl/NSvqCU");
+		pikachu.setEvolution(null);
+		raichu.setType(Arrays.asList(grass, poison));
+		raichu.setWeakness(Arrays.asList(fire, ice, flying, physic));
+		pokemonRepository.saveAndFlush(bulbasaur);
+		
+		Pokemon charizard = new Pokemon();
+		pikachu.setName("Charizard");
+		pikachu.setImage("https://goo.gl/0EQHsC");
+		pikachu.setEvolution(null);
+		raichu.setType(Arrays.asList(fire, flying));
+		raichu.setWeakness(Arrays.asList(water, electric, rock, ice));
+		pokemonRepository.saveAndFlush(charizard);
+		
+		Pokemon electabuzz = new Pokemon();
+		pikachu.setName("Electabuzz");
+		pikachu.setImage("https://goo.gl/0EQHsC");
+		pikachu.setEvolution(null);
+		raichu.setType(Arrays.asList(electric));
+		raichu.setWeakness(Arrays.asList(ground));
+		pokemonRepository.saveAndFlush(electabuzz);
+		
+		Pokemon koffing = new Pokemon();
+		pikachu.setName("Electabuzz");
+		pikachu.setImage("https://goo.gl/0Qjktf");
+		pikachu.setEvolution(null);
+		raichu.setType(Arrays.asList(poison));
+		raichu.setWeakness(Arrays.asList(ground, physic));
+		pokemonRepository.saveAndFlush(koffing);
 	}
 	
-	public PokemonRepository getPokemonRepository(){
-		return pokemonRepository;
+	public ArrayList<Pokemon> getPokemonRepository(){
+		PokemonDTO DTOobject = new PokemonDTO();
+		return DTOobject.serializePokemonArray(pokemonRepository.findAll());
 	}
 	
-	public PokemonTypesRepository getTypesRepository(){
-		return typesRepository;
+	public ArrayList<PokemonTypes> getTypesRepository(){
+		PokemonDTO DTOobject = new PokemonDTO();
+		return DTOobject.serializePokemonTypesArray(typesRepository.findAll());
 	}
+	
+
+
+	
 }

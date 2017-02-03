@@ -39,7 +39,7 @@ import com.google.gson.Gson;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PokemonControllerTests {
+public class UTPokemonController {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -62,7 +62,7 @@ public class PokemonControllerTests {
 	
 	@Test
     public void getAllPokemon() throws Exception {
-		String expectedResponce = gson.toJson(pokemonRepository.getAvaiblePokemons());
+		String expectedResponce = gson.toJson(pokemonRepository.getPokemonRepository());
 		mockMvc.perform(get("/pokemons"))
 		.andExpect(status().isOk())
 		.andExpect(content().string(containsString(expectedResponce)));
@@ -70,7 +70,7 @@ public class PokemonControllerTests {
 	
 	@Test
 	public void getSinglePokemonByIdPathParam() throws Exception{
-		String expectedResponce = gson.toJson(pokemonRepository.getAvaiblePokemons().get(0));
+		String expectedResponce = gson.toJson(pokemonRepository.getPokemonRepository().get(0));
 		mockMvc.perform(get("/pokemons/1"))
 		.andExpect(status().isOk())
 		.andExpect(content().string(containsString(expectedResponce)));
@@ -85,7 +85,7 @@ public class PokemonControllerTests {
 	
 	@Test
 	public void getPokemonByNameQueryParam() throws Exception{
-		String expectedResponce = gson.toJson(pokemonRepository.getAvaiblePokemons().get(0));
+		String expectedResponce = gson.toJson(pokemonRepository.getPokemonRepository().get(0));
 		mockMvc.perform(get("/pokemons?name=Pikachu"))
 		.andExpect(status().isOk())
 		.andExpect(content().string(containsString(expectedResponce)));
@@ -100,7 +100,7 @@ public class PokemonControllerTests {
 	
 	@Test
 	public void getAllTypes() throws Exception{
-		String expectedResponce = gson.toJson(pokemonRepository.getAvaibleTypes());
+		String expectedResponce = gson.toJson(pokemonRepository.getTypesRepository());
 		mockMvc.perform(get("/types"))
 		.andExpect(status().isOk())
 		.andExpect(content().string(containsString(expectedResponce)));
@@ -108,7 +108,7 @@ public class PokemonControllerTests {
 	
 	@Test
 	public void getSingleTypeByIdPathParam() throws Exception{
-		String expectedResponce = gson.toJson(pokemonRepository.getAvaibleTypes().get(0));
+		String expectedResponce = gson.toJson(pokemonRepository.getTypesRepository().get(0));
 		mockMvc.perform(get("/types/0"))
 		.andExpect(status().isOk())
 		.andExpect(content().string(containsString(expectedResponce)));
@@ -123,7 +123,7 @@ public class PokemonControllerTests {
 	
 	@Test
 	public void getTypeByNameQueryParam() throws Exception{
-		String expectedResponce = gson.toJson(pokemonRepository.getAvaibleTypes().get(1));
+		String expectedResponce = gson.toJson(pokemonRepository.getTypesRepository().get(1));
 		mockMvc.perform(get("/types?type=Grass"))
 		.andExpect(status().isOk())
 		.andExpect(content().string(containsString(expectedResponce)));

@@ -10,8 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.co.psl.config.PokemonDAO;
-import com.co.psl.config.PokemonRepository;
 import com.co.psl.models.Pokemon;
+import com.co.psl.repositories.PokemonRepository;
 
 @SpringBootApplication
 public class Application {
@@ -29,12 +29,12 @@ public class Application {
     	return (args)->{
 	
     		// fetch all pokemons
-			log.info("****************** Pokemons found with findAll():");
+			/*log.info("****************** Pokemons found with findAll():");
 			log.info("-------------------------------");
 			for (Pokemon pokemon : pokemonRepository.getPokemonRepository().findAll()) {
 				log.info(pokemon.toString());
 			}
-			log.info("");
+			log.info("");*/
     	};
     }
 }

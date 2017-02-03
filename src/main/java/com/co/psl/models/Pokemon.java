@@ -1,9 +1,18 @@
 package com.co.psl.models;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.google.gson.Gson;
+
+import net.minidev.json.JSONObject;
 
 //This entity will map data to Pokemon table
 @Entity
@@ -12,70 +21,69 @@ public class Pokemon {
 	//Object id
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	
 	private long id;
+	
     private String name;
-    private String[] type;
-    private String[] weakness;
-    private int evolutionId;
+    @OneToMany()
+    private List<PokemonTypes> type;
+    @OneToMany()
+    private List<PokemonTypes> weakness;
+    @OneToOne
+    private Pokemon evolution;
+    @Column()
     private String image;
-    
-    //JPA Constructor
-    protected Pokemon() {};
-    
-    //Constructor
-    public Pokemon(long id, String name, String[] type, String[] weakness, int evolutionId, String image) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.type = type;
-		this.weakness = weakness;
-		this.evolutionId = evolutionId;
-		this.image = image;
-	}
-    
-	//Getters
+ 
 	public long getId() {
 		return id;
 	}
+
 	public String getName() {
 		return name;
 	}
-	public String[] getType() {
-		return type;
-	}
-	public String[] getWeakness() {
-		return weakness;
-	}
-	public int getEvolutionId() {
-		return evolutionId;
-	}
-	public String getImage() {
-		return image;
-	}
-	
-	//Setters
-	public void setId(long id) {
-		this.id = id;
-	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setType(String[] type) {
+
+	public List<PokemonTypes> getType() {
+		return type;
+	}
+
+	public void setType(List<PokemonTypes> type) {
 		this.type = type;
 	}
-	public void setWeakness(String[] weakness) {
+
+	public List<PokemonTypes> getWeakness() {
+		return weakness;
+	}
+
+	public void setWeakness(List<PokemonTypes> weakness) {
 		this.weakness = weakness;
 	}
-	public void setEvolutionId(int evolutionId) {
-		this.evolutionId = evolutionId;
+
+	public Pokemon getEvolution() {
+		return evolution;
 	}
+
+	public void setEvolution(Pokemon evolution) {
+		this.evolution = evolution;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
 	public void setImage(String image) {
 		this.image = image;
 	}
 	
 	@Override
-	public String toString() {
-		return String.format("Pokemon [id=%d, name='%s', image='%s']", id, name, image);
+	public String toString(){
+		Gson gson = new Gson();
+		JSONObject responce = new JSONObject();
+		responce.put("id", id);
+		responce.put("name", name);
+		return gson.toJson(responce);
 	}
+
 }

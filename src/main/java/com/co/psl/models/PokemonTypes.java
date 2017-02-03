@@ -1,5 +1,6 @@
 package com.co.psl.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,16 +12,17 @@ public class PokemonTypes {
 	//Object id
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	
 	private int id;
+	
+	@Column(unique = true, nullable = false)
 	private String type;
 	
 	//JPA Constructor
 	protected PokemonTypes() {};
 	
-	public PokemonTypes(int id, String type) {
+	//Constructor
+	public PokemonTypes(String type) {
 		super();
-		this.id = id;
 		this.type = type;
 	}
 	

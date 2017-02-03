@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.co.psl.config.PokemonDAO;
 import com.co.psl.models.Pokemon;
 import com.co.psl.models.PokemonTypes;
+import com.google.gson.Gson;
 
 @RestController
 public class PokemonController {
@@ -22,7 +23,7 @@ public class PokemonController {
 	@RequestMapping(value="/pokemons/{id}", method=RequestMethod.GET)
 	@ResponseBody
 	public Pokemon getPokemonById(@PathVariable("id") int id){
-		for (Pokemon currentPokemon : pokemonRepository.getPokemonRepository().findAll()) {
+		for (Pokemon currentPokemon : pokemonRepository.getPokemonRepository()) {
 			if(currentPokemon.getId() == id){
 				return currentPokemon;
 			}
@@ -35,7 +36,7 @@ public class PokemonController {
 			@RequestParam(value="name", required=false) String name){
 		
 		if(name!=null){
-			for (Pokemon currentPokemon : pokemonRepository.getPokemonRepository().findAll()) {
+			for (Pokemon currentPokemon : pokemonRepository.getPokemonRepository()) {
 				if(currentPokemon.getName().equals(name)){
 					ArrayList<Pokemon> responce = new ArrayList<Pokemon>();
 					{
@@ -46,13 +47,13 @@ public class PokemonController {
 			}
 			return null;
 		}
-		return pokemonRepository.getAvaiblePokemons();
+		return pokemonRepository.getPokemonRepository();
 	}
 	
 	@RequestMapping(value="/types/{id}", method=RequestMethod.GET)
 	@ResponseBody
 	public PokemonTypes getPokemonTypeById(@PathVariable("id") int id){
-		for (PokemonTypes currentPokemonType : pokemonRepository.getTypesRepository().findAll()) {
+		for (PokemonTypes currentPokemonType : pokemonRepository.getTypesRepository()) {
 			if(currentPokemonType.getId() == id){
 				return currentPokemonType;
 			}
@@ -63,7 +64,7 @@ public class PokemonController {
 	@RequestMapping(path="/types", method=RequestMethod.GET)
 	public @ResponseBody ArrayList<PokemonTypes> listAvaiblePokemonTypes(@RequestParam(value="type", required=false) String type){
 		if(type != null){
-			for (PokemonTypes currentPokemonType : pokemonRepository.getTypesRepository().findAll()) {
+			for (PokemonTypes currentPokemonType : pokemonRepository.getTypesRepository()) {
 				if(currentPokemonType.getType().equals(type)){
 					ArrayList<PokemonTypes> responce = new ArrayList<PokemonTypes>();
 					{
@@ -74,8 +75,8 @@ public class PokemonController {
 			}
 			return null;
 		}
-		return pokemonRepository.getAvaibleTypes();
-	}
-	
+		
+		return pokemonRepository.getTypesRepository();
+	}	
 	
 }
