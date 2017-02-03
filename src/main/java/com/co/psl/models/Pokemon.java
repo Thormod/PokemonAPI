@@ -1,12 +1,27 @@
 package com.co.psl.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+//This entity will map data to Pokemon table
+@Entity
 public class Pokemon {
+	
+	//Object id
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	
 	private long id;
     private String name;
     private String[] type;
     private String[] weakness;
     private int evolutionId;
     private String image;
+    
+    //JPA Constructor
+    protected Pokemon() {};
     
     //Constructor
     public Pokemon(long id, String name, String[] type, String[] weakness, int evolutionId, String image) {
@@ -57,5 +72,10 @@ public class Pokemon {
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("Pokemon [id=%d, name='%s', image='%s']", id, name, image);
 	}
 }

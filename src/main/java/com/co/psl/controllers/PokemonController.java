@@ -22,7 +22,7 @@ public class PokemonController {
 	@RequestMapping(value="/pokemons/{id}", method=RequestMethod.GET)
 	@ResponseBody
 	public Pokemon getPokemonById(@PathVariable("id") int id){
-		for (Pokemon currentPokemon : pokemonRepository.getAvaiblePokemons()) {
+		for (Pokemon currentPokemon : pokemonRepository.getPokemonRepository().findAll()) {
 			if(currentPokemon.getId() == id){
 				return currentPokemon;
 			}
@@ -35,7 +35,7 @@ public class PokemonController {
 			@RequestParam(value="name", required=false) String name){
 		
 		if(name!=null){
-			for (Pokemon currentPokemon : pokemonRepository.getAvaiblePokemons()) {
+			for (Pokemon currentPokemon : pokemonRepository.getPokemonRepository().findAll()) {
 				if(currentPokemon.getName().equals(name)){
 					ArrayList<Pokemon> responce = new ArrayList<Pokemon>();
 					{
@@ -52,7 +52,7 @@ public class PokemonController {
 	@RequestMapping(value="/types/{id}", method=RequestMethod.GET)
 	@ResponseBody
 	public PokemonTypes getPokemonTypeById(@PathVariable("id") int id){
-		for (PokemonTypes currentPokemonType : pokemonRepository.getAvaibleTypes()) {
+		for (PokemonTypes currentPokemonType : pokemonRepository.getTypesRepository().findAll()) {
 			if(currentPokemonType.getId() == id){
 				return currentPokemonType;
 			}
@@ -63,7 +63,7 @@ public class PokemonController {
 	@RequestMapping(path="/types", method=RequestMethod.GET)
 	public @ResponseBody ArrayList<PokemonTypes> listAvaiblePokemonTypes(@RequestParam(value="type", required=false) String type){
 		if(type != null){
-			for (PokemonTypes currentPokemonType : pokemonRepository.getAvaibleTypes()) {
+			for (PokemonTypes currentPokemonType : pokemonRepository.getTypesRepository().findAll()) {
 				if(currentPokemonType.getType().equals(type)){
 					ArrayList<PokemonTypes> responce = new ArrayList<PokemonTypes>();
 					{
