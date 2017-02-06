@@ -21,6 +21,9 @@ public class PokemonDAO {
 	@Autowired
 	private PokemonTypesRepository typesRepository;
 	
+	private List<Pokemon> pokemonList;
+	private List<PokemonTypes> pokemonTypeList;
+	
 	@PostConstruct
 	public void pokemonSetUp() {
 		
@@ -60,43 +63,59 @@ public class PokemonDAO {
 		pikachu.setName("Pikachu");
 		pikachu.setImage("https://goo.gl/T1rXHl");
 		pikachu.setEvolution(raichu);
-		raichu.setType(Arrays.asList(electric));
-		raichu.setWeakness(Arrays.asList(poison));
+		pikachu.setType(Arrays.asList(electric));
+		pikachu.setWeakness(Arrays.asList(poison));
 		pokemonRepository.saveAndFlush(pikachu);
 		
+		
 		Pokemon bulbasaur = new Pokemon();
-		pikachu.setName("Bulbasaur");
-		pikachu.setImage("https://goo.gl/NSvqCU");
-		pikachu.setEvolution(null);
-		raichu.setType(Arrays.asList(grass, poison));
-		raichu.setWeakness(Arrays.asList(fire, ice, flying, physic));
+		bulbasaur.setName("Bulbasaur");
+		bulbasaur.setImage("https://goo.gl/NSvqCU");
+		bulbasaur.setEvolution(null);
+		bulbasaur.setType(Arrays.asList(grass, poison));
+		bulbasaur.setWeakness(Arrays.asList(fire, ice, flying, physic));
 		pokemonRepository.saveAndFlush(bulbasaur);
 		
 		Pokemon charizard = new Pokemon();
-		pikachu.setName("Charizard");
-		pikachu.setImage("https://goo.gl/0EQHsC");
-		pikachu.setEvolution(null);
-		raichu.setType(Arrays.asList(fire, flying));
-		raichu.setWeakness(Arrays.asList(water, electric, rock, ice));
+		charizard.setName("Charizard");
+		charizard.setImage("https://goo.gl/0EQHsC");
+		charizard.setEvolution(null);
+		charizard.setType(Arrays.asList(fire, flying));
+		charizard.setWeakness(Arrays.asList(water, electric, rock, ice));
 		pokemonRepository.saveAndFlush(charizard);
 		
 		Pokemon electabuzz = new Pokemon();
-		pikachu.setName("Electabuzz");
-		pikachu.setImage("https://goo.gl/0EQHsC");
-		pikachu.setEvolution(null);
-		raichu.setType(Arrays.asList(electric));
-		raichu.setWeakness(Arrays.asList(ground));
+		electabuzz.setName("Electabuzz");
+		electabuzz.setImage("https://goo.gl/0EQHsC");
+		electabuzz.setEvolution(null);
+		electabuzz.setType(Arrays.asList(electric));
+		electabuzz.setWeakness(Arrays.asList(ground));
 		pokemonRepository.saveAndFlush(electabuzz);
 		
 		Pokemon koffing = new Pokemon();
-		pikachu.setName("Electabuzz");
-		pikachu.setImage("https://goo.gl/0Qjktf");
-		pikachu.setEvolution(null);
-		raichu.setType(Arrays.asList(poison));
-		raichu.setWeakness(Arrays.asList(ground, physic));
+		koffing.setName("Electabuzz");
+		koffing.setImage("https://goo.gl/0Qjktf");
+		koffing.setEvolution(null);
+		koffing.setType(Arrays.asList(poison));
+		koffing.setWeakness(Arrays.asList(ground, physic));
 		pokemonRepository.saveAndFlush(koffing);
+		
+		
+		pokemonList = pokemonRepository.findAll();
+		pokemonTypeList = typesRepository.findAll();
+		
 	}
 	
+	public List<Pokemon> getPokemonList() {
+		PokemonDTO DTOobject = new PokemonDTO();
+		return DTOobject.serializePokemonArray(pokemonList);
+	}
+
+	public List<PokemonTypes> getPokemonTypeList() {
+		PokemonDTO DTOobject = new PokemonDTO();
+		return DTOobject.serializePokemonTypesArray(pokemonTypeList);
+	}
+
 	public ArrayList<Pokemon> getPokemonRepository(){
 		PokemonDTO DTOobject = new PokemonDTO();
 		return DTOobject.serializePokemonArray(pokemonRepository.findAll());

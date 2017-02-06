@@ -42,20 +42,28 @@
         <!-- Dependencies for starter web app -->
         
         <!-- Dependencies for JSON encode & decode -->
-        <dependency>
+        <!--  <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>1.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.minidev/json-smart -->
+		<!-- https://mvnrepository.com/artifact/net.minidev/json-smart -->
 		<dependency>
-		    <groupId>com.googlecode.json-simple</groupId>
-		    <artifactId>json-simple</artifactId>
-		    <version>1.1.1</version>
+		    <groupId>net.minidev</groupId>
+		    <artifactId>json-smart</artifactId>
+		    <version>2.1.0</version>
+		</dependency>
+
+		<dependency>
+		   	<groupId>com.jayway.jsonpath</groupId>
+		    <artifactId>json-path</artifactId>
+		    <version>2.2.0</version>
 		</dependency>
         <!-- /Dependencies for JSON encode & decode -->
         

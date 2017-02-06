@@ -6,6 +6,8 @@ import java.util.List;
 import com.co.psl.models.Pokemon;
 import com.co.psl.models.PokemonTypes;
 
+import net.minidev.json.JSONArray;
+
 public class PokemonDTO {
 	public ArrayList<PokemonTypes> serializePokemonTypesArray(List<PokemonTypes> typesList){
 		ArrayList<PokemonTypes> responce = new ArrayList<PokemonTypes>();
@@ -18,6 +20,14 @@ public class PokemonDTO {
 		ArrayList<Pokemon> responce = new ArrayList<Pokemon>();
 		for(Pokemon pokemon: pokemonsList){
 			responce.add(pokemon);
+		}
+		return responce;
+	}
+	
+	public JSONArray toJSONArray(List<Pokemon> list){
+		JSONArray responce = new JSONArray();
+		for (int i = 0; i < list.size(); i++) {
+			responce.add(list.get(i).toJSON());
 		}
 		return responce;
 	}

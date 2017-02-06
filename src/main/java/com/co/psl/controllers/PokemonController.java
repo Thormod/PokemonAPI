@@ -11,12 +11,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.co.psl.config.PokemonDAO;
+import com.co.psl.config.PokemonDTO;
 import com.co.psl.models.Pokemon;
 import com.co.psl.models.PokemonTypes;
-import com.google.gson.Gson;
+
+import net.minidev.json.JSONArray;
 
 @RestController
 public class PokemonController {
+	
+	PokemonDTO DTOobject = new PokemonDTO();
+	
 	@Autowired
 	PokemonDAO pokemonRepository;
 	
@@ -32,22 +37,20 @@ public class PokemonController {
 	}
 		
 	@RequestMapping(path="/pokemons", method=RequestMethod.GET)
-	public @ResponseBody ArrayList<Pokemon> listAvaiblePokemons(
+	public @ResponseBody JSONArray listAvaiblePokemons(
 			@RequestParam(value="name", required=false) String name){
 		
 		if(name!=null){
 			for (Pokemon currentPokemon : pokemonRepository.getPokemonRepository()) {
 				if(currentPokemon.getName().equals(name)){
-					ArrayList<Pokemon> responce = new ArrayList<Pokemon>();
-					{
-						responce.add(currentPokemon);
-					}
-					return responce;
+					JSONArray arrayResponce = new JSONArray();
+					arrayResponce.add(currentPokemon.toJSON());
+					return arrayResponce;
 				}
 			}
 			return null;
 		}
-		return pokemonRepository.getPokemonRepository();
+		return DTOobject.toJSONArray(pokemonRepository.getPokemonRepository());
 	}
 	
 	@RequestMapping(value="/types/{id}", method=RequestMethod.GET)
