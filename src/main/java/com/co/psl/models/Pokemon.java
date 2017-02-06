@@ -88,16 +88,6 @@ public class Pokemon {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
-	public JSONObject toJSON(){
-		JSONObject responce = new JSONObject();
-		responce.put("id", id);
-		responce.put("name", name);
-		responce.put("image", image);
-		responce.put("type", types);
-		responce.put("weakness", weakness);
-		responce.put("evolution",(evolution != null)?evolution.getName():"");
-		return responce;
-	}
+
 
 }

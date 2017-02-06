@@ -1,4 +1,4 @@
-package com.co.psl.config;
+package com.co.psl.repositories.DTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import com.co.psl.models.PokemonTypes;
 
 import net.minidev.json.JSONArray;
 
-public class PokemonDTO {
+public class RepositoryDTO {
 	public ArrayList<PokemonTypes> serializePokemonTypesArray(List<PokemonTypes> typesList){
 		ArrayList<PokemonTypes> responce = new ArrayList<PokemonTypes>();
 		for(PokemonTypes type: typesList){
@@ -22,14 +22,5 @@ public class PokemonDTO {
 			responce.add(pokemon);
 		}
 		return responce;
-	}
-	
-	public JSONArray toJSONArray(List<Pokemon> list){
-		JSONArray responce = new JSONArray();
-		for (int i = 0; i < list.size(); i++) {
-			responce.add(list.get(i).toJSON());
-		}
-		return responce;
-	}
-	
+	}	
 }
